@@ -74,7 +74,7 @@ public class ImageCompressPlugin implements FlutterPlugin, MethodCallHandler {
           bitmap = resizeBitmap(bitmap, maxWidth, maxHeight);
 
           // Add watermark
-          if(watermarkText != null){
+          if(watermarkText != null || isDateWatermark){
             bitmap = addWatermark(bitmap, watermarkText, isDateWatermark);
           }
 
@@ -127,7 +127,7 @@ public class ImageCompressPlugin implements FlutterPlugin, MethodCallHandler {
     return Bitmap.createScaledBitmap(bitmap, width, height, true);
   }
 
-  private Bitmap addWatermark(Bitmap original, String watermarkText, boolean isDate) {
+  private Bitmap addWatermark(Bitmap original, String watermarkText1, boolean isDate) {
     int w = original.getWidth();
     int h = original.getHeight();
     Bitmap result = Bitmap.createBitmap(w, h, original.getConfig());
@@ -147,7 +147,9 @@ public class ImageCompressPlugin implements FlutterPlugin, MethodCallHandler {
     paint2.setUnderlineText(false);
 
     // Draw the watermark text at the bottom right corner
-    canvas.drawText(watermarkText, 30, 30, paint2); // Adjust position as needed
+    if(watermarkText1!=null){
+      canvas.drawText(watermarkText1, 30, 30, paint2); // Adjust position as needed
+    }
     if(isDate){
       String nowTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
       canvas.drawText(nowTime, w - 234, h - 30, paint2); // Adjust position as needed
