@@ -35,8 +35,8 @@ class _MyAppState extends State<MyApp> {
     await ImageCompress.compress(imageSrc: imageFile!.path,
         desiredQuality: 90,
         watermarkText: 'Test lorem ipsum',
-        maxWidth: 500,
-        maxHeight: 500,
+        maxWidth: 1280,
+        maxHeight: 1080,
 
     ); //desiredQuality ranges from 0 to 100
     print("FILE SIZE  AFTER: " + imageFile!.lengthSync().toString());
